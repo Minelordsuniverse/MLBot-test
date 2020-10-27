@@ -134,6 +134,25 @@ client.on("ready", () => {
   client.user.setActivity("MLBot | Music, Moderation, fun, etc.");
 });
 
+const AntiSpam = require('discord-anti-spam');
+const antiSpam = new AntiSpam({
+  warnThreshold: 5,
+  kickThreshold: 7,
+  banThreshhold: 8,
+  maxInternal: 2000,
+  warnMessage: '{@user}, Please stop spamming.',
+  kickMessage: '**{user_tag}** has been kicked for spamming.',
+  banMessage: '**{user_tag}** has been banned for spamming.',
+  maxDuplicatesWarning: 7,
+  maxDuplicatesKick: 10,
+  maxDuplicatesBan: 12,
+  exemptPermissions: [ 'ADMINISTRATOR'],
+  ignoreBots: true,
+  verbalose: true,
+  ignoredUsers: [],
+    ignoredRoles: ["743528012921831596"]
+});
+
 process.on("uncaughtException", error =>
   console.log(chalk.redBright("[Uncaught Exception]"), error)
 );
