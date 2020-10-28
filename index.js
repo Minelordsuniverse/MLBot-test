@@ -5,8 +5,6 @@ client.once('ready', () => {
 	console.log('Ready!');
 });
 
-client.login(process.env.CLIENT_TOKEN);
-
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 require("dotenv").config();
@@ -35,9 +33,39 @@ const client = new CommandoClient({
   commandPrefix: "ML",
   unknownCommandResponse: false,
   disableEveryone: false,
-  invite: "https://discord.gg/fCdHsTe",
+  invite: "https://discord.gg/qrDAn3D",
   owner: process.env.OWNERID
 });
+
+const client = new Discord.Client({
+  fetchAllMembers: false,
+  presence: {
+    status: 'online',
+    activity: {
+      name: `| Under Development`,
+      type: 'Playing'
+    } 
+  }
+})
+
+client.on('guildCreate',guild=>{
+  //  console.log(server)
+  let link=''
+    guild.owner.send('Thanks for having me !')
+    var found = false;
+    guild.channels.forEach(function(channel, id) {
+        // If a channel is already found, nothing more needs to be done
+        if(found == true || channel.type != "text") {
+          return;
+        }
+        // If the channel isn't found and the bot has permission to 
+        // send and read messages in the channel, send a welcome message there
+        if(guild.me.permissionsIn(channel).has("SEND_MESSAGES") && guild.me.permissionsIn(channel).has("VIEW_CHANNEL")) {
+          found = true;
+          return channel.send("Glad to meet you all , use ML for all my commands ")
+        }
+    })
+  });
 
 client.on("message", message => {
   if (message.author.bot) return;
@@ -131,7 +159,7 @@ client.on("ready", () => {
     }
   });
   console.log(chalk.greenBright("[Status]"), "Bot Online");
-  client.user.setActivity("MLBot | Music, Moderation, fun, etc.");
+  client.user.setActivity("Under Development.");
 });
 
 const AntiSpam = require('discord-anti-spam');
