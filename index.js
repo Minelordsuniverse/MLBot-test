@@ -62,7 +62,7 @@ client.on('guildCreate',guild=>{
         // send and read messages in the channel, send a welcome message there
         if(guild.me.permissionsIn(channel).has("SEND_MESSAGES") && guild.me.permissionsIn(channel).has("VIEW_CHANNEL")) {
           found = true;
-          return channel.send("Glad to meet you all , use ML for all my commands ")
+          return channel.send("Glad to meet you all , use ML for all my commands , use https://discord.com/api/oauth2/authorize?client_id=754295026292359212&permissions=8&scope=bot to invite me to your server")
         }
     })
   });
