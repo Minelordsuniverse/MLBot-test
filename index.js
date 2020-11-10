@@ -1,5 +1,5 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
+const discord = require("discord.js")
+const client = new discord.Client()
 
 client.once('ready', () => {
 	console.log('Ready!');
@@ -29,24 +29,13 @@ Structures.extend("Guild", Guild => {
   return MusicGuild;
 });
 
-const client = new CommandoClient({
-  commandPrefix: "ML",
+const commandoClient = new CommandoClient({
+  commandPrefix: "?",
   unknownCommandResponse: false,
   disableEveryone: false,
-  invite: "https://discord.gg/qrDAn3D",
+  invite: "https://discord.gg/F2PfNVgnff",
   owner: process.env.OWNERID
 });
-
-const client = new Discord.Client({
-  fetchAllMembers: false,
-  presence: {
-    status: 'online',
-    activity: {
-      name: `| Under Development`,
-      type: 'Playing'
-    } 
-  }
-})
 
 client.on('guildCreate',guild=>{
   //  console.log(server)
@@ -62,7 +51,7 @@ client.on('guildCreate',guild=>{
         // send and read messages in the channel, send a welcome message there
         if(guild.me.permissionsIn(channel).has("SEND_MESSAGES") && guild.me.permissionsIn(channel).has("VIEW_CHANNEL")) {
           found = true;
-          return channel.send("Glad to meet you all , use ML for all my commands , use https://discord.com/api/oauth2/authorize?client_id=754295026292359212&permissions=8&scope=bot to invite me to your server")
+          return channel.send("Glad to meet you all , use ? for all my commands , use https://discord.com/api/oauth2/authorize?client_id=771083554515714090&permissions=8&scope=bot to invite me to your server")
         }
     })
   });
@@ -93,7 +82,7 @@ client.on("message", message => {
 client.registry
   .registerDefaultTypes()
   .registerGroups([
-    ["fun", "Fun Commands"],
+    ["arcade", "Fun Commands"],
     ["moderation", "Moderation Commands"],
     ["music", "Music Commands"]
   ])
@@ -159,7 +148,7 @@ client.on("ready", () => {
     }
   });
   console.log(chalk.greenBright("[Status]"), "Bot Online");
-  client.user.setActivity("Under Development.");
+  client.user.setActivity("Command Prefix is ?");
 });
 
 const AntiSpam = require('discord-anti-spam');
@@ -185,4 +174,25 @@ process.on("uncaughtException", error =>
   console.log(chalk.redBright("[Uncaught Exception]"), error)
 );
 
-client.login(process.env.CLIENT_TOKEN);
+const { CanvasSenpai } = require("canvas-senpai")
+const canva = new CanvasSenpai();
+
+client.on('guildMemberAdd', async member => {
+    const channel = member.guild.channels.cache.find(ch => ch.name === 'general');
+    if (!channel) return;
+ 
+   let data = await canva.welcome(member, { link: "https://wallpapercave.com/wp/wp5128415.jpg" })
+ 
+    const attachment = new discord.MessageAttachment(
+      data,
+      "welcome-image.png"
+    );
+ 
+    channel.send(
+      `Welcome to the server, ${member.user.username}!`,
+      attachment
+    );   
+   });
+ 
+
+client.login(process.env.TOKEN)
